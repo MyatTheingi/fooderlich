@@ -14,36 +14,6 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   // 1
   final mockService = MockFooderlichService();
-  late ScrollController _controller;
-
-  @override
-  void initState() {
-    _controller = ScrollController();
-    _controller.addListener(_scrollListener);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_scrollListener);
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (_controller.offset >= _controller.position.maxScrollExtent &&
-        !_controller.position.outOfRange) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('I am at the bottom!'),
-      ));
-    }
-
-    if (_controller.offset <= _controller.position.minScrollExtent &&
-        !_controller.position.outOfRange) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('I am at the top!'),
-      ));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +27,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
         if (snapshot.connectionState == ConnectionState.done) {
           // 5
           return ListView(
-            controller: _controller,
             // 6
             scrollDirection: Axis.vertical,
             children: [
